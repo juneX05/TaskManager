@@ -1,0 +1,19 @@
+<?php
+
+namespace __moduleNamespace__\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+__moduleRelationshipNamespaces__
+
+class __moduleNameSingular__ extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        __moduleFillableList__
+    ];
+
+__moduleRelationshipFunctions__
+
+}
