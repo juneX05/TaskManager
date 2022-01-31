@@ -115,6 +115,11 @@ class FormGenerator
                 'type' => 'relation',
                 'stub' => 'SelectInput'
             ];
+        } elseif (in_array($column_type, ['text'])) {
+            return [
+                'type' => 'text-area',
+                'stub' => 'TextAreaInput'
+            ];
         }
     }
 
