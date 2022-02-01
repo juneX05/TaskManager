@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 /*
@@ -16,14 +17,21 @@ use Inertia\Inertia;
 */
 
 Route::get('/generate', function () {
-    $name = trim('   Project Status  ');
+    $name = trim('   Project  ');
     $name = ucwords($name);
     $name = Str::remove(' ', $name);
     $data['moduleName'] = $name;
 
-    $data['moduleType'] = 'DevConfigs';
+    $data['moduleType'] = 'System';
     $data['moduleIcon'] = 'mdi-tag';
     $data['relations'] = [
+        [
+            'type' => 'BelongsTo',
+            'module' => 'ProjectStatus',
+            'location' => 'DevConfigs',
+            'column' => 'project_status_id',
+            'display' => 'name',
+        ],
     ];
 
     $data['columns'] = [
@@ -38,12 +46,22 @@ Route::get('/generate', function () {
             'unique' => true,
         ],
         [
-            'display_name' => 'Color',
+            'display_name' => 'Description',
             'in_form' => true,
-            'name' => 'color',
+            'name' => 'description',
             'type' => 'text',
             'size' => null,
             'not_null' => false,
+            'default' => null,
+            'unique' => false,
+        ],
+        [
+            'display_name' => 'Project Status',
+            'in_form' => false,
+            'name' => 'project_status_id',
+            'type' => 'integer',
+            'size' => null,
+            'not_null' => true,
             'default' => null,
             'unique' => false,
         ],
