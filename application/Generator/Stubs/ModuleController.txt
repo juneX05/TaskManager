@@ -77,7 +77,7 @@ __moduleShowData__
     {
         abort_if(Gate::denies('__moduleNameSingularLower__.edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $rules = ['id' => ['required'], __moduleUpdateRules__];
+        $rules = [ __moduleUpdateRules__];
         Validator::make($request->all(), $rules)->validate();
 
         if ($request->has('id')) {

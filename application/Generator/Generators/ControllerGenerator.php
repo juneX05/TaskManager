@@ -72,7 +72,8 @@ class ControllerGenerator
                 $this->replacors[$key] .= "'nullable',";
             }
 
-            $this->replacors[$key] .= "'${column['type']}',";
+            $column_type = $this->ruleByColumnType($column['type']);
+            $this->replacors[$key] .= "'$column_type',";
 
             if ($column['size'] != null) {
                 $this->replacors[$key] .= "'max:${column['size']}',";
@@ -88,6 +89,18 @@ class ControllerGenerator
 
             }
             $this->replacors[$key] .= "],\n";
+        }
+    }
+
+    private function ruleByColumnType($column_type) {
+        if ($column_type == 'string' || $column_type == 'text') {
+            return 'string';
+        } else if ($column_type == 'time') {
+            return 'date_format:H:i';
+        } else if ($column_type == 'date') {
+            return 'date_format:Y-m-d';
+        } else {
+            return '';
         }
     }
 
