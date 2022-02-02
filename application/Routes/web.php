@@ -17,7 +17,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/generate', function () {
-    $name = trim('   Project  ');
+    $name = trim('   Label  ');
     $name = ucwords($name);
     $name = Str::remove(' ', $name);
     $data['moduleName'] = $name;
@@ -27,9 +27,23 @@ Route::get('/generate', function () {
     $data['relations'] = [
         [
             'type' => 'BelongsTo',
-            'module' => 'ProjectStatus',
+            'module' => 'TaskStatus',
             'location' => 'DevConfigs',
-            'column' => 'project_status_id',
+            'column' => 'task_status_id',
+            'display' => 'name',
+        ],
+        [
+            'type' => 'BelongsTo',
+            'module' => 'Project',
+            'location' => 'System',
+            'column' => 'project_id',
+            'display' => 'name',
+        ],
+        [
+            'type' => 'HasMany',
+            'module' => 'Label',
+            'location' => 'System',
+            'column' => 'label_id',
             'display' => 'name',
         ],
     ];
@@ -56,9 +70,39 @@ Route::get('/generate', function () {
             'unique' => false,
         ],
         [
-            'display_name' => 'Project Status',
-            'in_form' => false,
-            'name' => 'project_status_id',
+            'display_name' => 'Start Date',
+            'in_form' => true,
+            'name' => 'start_date',
+            'type' => 'date',
+            'size' => null,
+            'not_null' => true,
+            'default' => null,
+            'unique' => false,
+        ],
+        [
+            'display_name' => 'Completion Date',
+            'in_form' => true,
+            'name' => 'completion_date',
+            'type' => 'date',
+            'size' => null,
+            'not_null' => true,
+            'default' => null,
+            'unique' => false,
+        ],
+        [
+            'display_name' => 'Task Status',
+            'in_form' => true,
+            'name' => 'task_status_id',
+            'type' => 'integer',
+            'size' => null,
+            'not_null' => true,
+            'default' => null,
+            'unique' => false,
+        ],
+        [
+            'display_name' => 'Project',
+            'in_form' => true,
+            'name' => 'project_id',
             'type' => 'integer',
             'size' => null,
             'not_null' => true,

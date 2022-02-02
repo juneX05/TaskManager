@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "title": "Projects",
+    "icon": "mdi-tag",
+    "link": "viewProjects",
+    "permissions": [
+      "projects.view"
+    ],
+    "position": 6
+  }
+}

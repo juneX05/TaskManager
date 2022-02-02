@@ -1,0 +1,11 @@
+{
+  "task_statuses": {
+    "title": "TaskStatuses",
+    "icon": "mdi-tag",
+    "link": "viewTaskStatuses",
+    "permissions": [
+      "task_statuses.view"
+    ],
+    "position": 6
+  }
+}

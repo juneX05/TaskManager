@@ -1,0 +1,24 @@
+<?php
+
+namespace Application\Modules\Configurations\DevConfigs\Tabs\TaskStatuses\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+
+class TaskStatus extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        
+		'id',
+		'id',
+		'name',
+		'color',
+
+    ];
+
+
+
+}

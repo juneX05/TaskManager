@@ -1,0 +1,48 @@
+{
+    "moduleNamePlural": "ProjectStatuses",
+    "moduleNameSingular": "ProjectStatus",
+    "moduleNamePluralLower": "project_statuses",
+    "moduleNameSingularLower": "project_status",
+    "moduleNameSlug": "project-status",
+    "moduleName": "ProjectStatus",
+    "moduleType": "DevConfigs",
+    "moduleIcon": "mdi-tag",
+    "relations": [],
+    "columns": [
+        {
+            "display_name": "ID",
+            "in_form": true,
+            "name": "id",
+            "type": "integer",
+            "size": null,
+            "not_null": true,
+            "default": null,
+            "unique": true,
+            "primary": true
+        },
+        {
+            "display_name": "Name",
+            "in_form": true,
+            "name": "name",
+            "type": "string",
+            "size": 40,
+            "not_null": true,
+            "default": null,
+            "unique": true
+        },
+        {
+            "display_name": "Color",
+            "in_form": true,
+            "name": "color",
+            "type": "text",
+            "size": null,
+            "not_null": false,
+            "default": null,
+            "unique": false
+        }
+    ],
+    "moduleNamespace": "Application\\Modules\\Configurations\\DevConfigs\\Tabs\\ProjectStatuses",
+    "moduleDirectory": "\/application\/Modules\/Configurations\/DevConfigs\/Tabs\/ProjectStatuses",
+    "moduleDirectoryForViews": "Configurations\/DevConfigs\/Tabs\/ProjectStatuses\/Views",
+    "custom_id": true
+}
