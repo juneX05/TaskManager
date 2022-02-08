@@ -1,117 +1,131 @@
 <template>
-  <app-layout>
-    <template #bread-crumbs>
-      <inertia-link :href="route('home')" style="text-decoration: none">
-        <v-icon size="16" style="margin-top: -2px">home</v-icon>
-      </inertia-link>
-      <span class="text-md">
-                / Projects List
-            </span>
+    <initial-layout>
+      <template #header> Projects </template>
 
-    </template>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Projects
-      </h2>
-    </template>
+      <div class="container">
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Projects</h3>
 
-    <v-col cols="12">
-      <v-row>
-        <v-col cols="12">
-          <inertia-link :href="route('createProject')" as="v-btn" class="float-end" small>
-            <v-icon>add</v-icon>
-            Add Project
-          </inertia-link>
-        </v-col>
-      </v-row>
-      <div class="mt-3">
-        <v-data-table v-if="data.length > 0"
-                      :headers="headers"
-                      :items="data"
-                      class="elevation-1"
-                      item-key="id"
-        >
-          <template v-slot:item.SNO="{ index }">
-            {{ index + 1 }}
-          </template>
-          <template v-slot:item.actions="{ item }">
-            <div v-if="item_id == null ">
-              <inertia-link :href="route('viewProject',[item.id])" as="v-icon" class="mr-2" small>
-                mdi-eye
-              </inertia-link>
-              <inertia-link :href="route('editProject',[item.id])" as="v-icon" class="mr-2" small>
-                mdi-pencil
-              </inertia-link>
-              <v-icon
-                  small
-                  @click="item_id = item.id"
-              >
-                mdi-delete
-              </v-icon>
-            </div>
-
-            <div v-if="item_id != null && item_id == item.id" class="mt-5 mb-5">
-
-              <v-row justify="center">
-                <b>Are you sure you want to DELETE this item?</b>
-              </v-row>
-              <v-row justify="end">
-
-                <v-btn dark small @click="item_id = null">No</v-btn>
-                <v-spacer></v-spacer>
-                <v-btn small @click="remove">I'm Sure</v-btn>
-              </v-row>
-            </div>
-          </template>
-        </v-data-table>
-        <v-card v-else>
-          <v-card-text>
-            <v-icon>warning</v-icon>
-            <p>
-              No Data Available for this table
-            </p>
-          </v-card-text>
-        </v-card>
+<!--            <div class="card-tools">-->
+<!--              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">-->
+<!--                <i class="fas fa-minus"></i>-->
+<!--              </button>-->
+<!--              <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">-->
+<!--                <i class="fas fa-times"></i>-->
+<!--              </button>-->
+<!--            </div>-->
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-striped projects">
+              <thead>
+              <tr>
+                <th style="width: 1%">
+                  #
+                </th>
+                <th style="width: 20%">
+                  Project Name
+                </th>
+                <th style="width: 20%">
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(item, index) in this.$page.props.data" :key="index">
+                <td>
+                  # {{item.id}}
+                </td>
+                <td>
+                  <a>
+                    {{ item.title }}
+                  </a>
+                  <br/>
+                  <small>
+                    Created {{ item.created_at }}
+                  </small>
+                </td>
+                <td class="project-actions text-right">
+                  <a class="btn btn-primary btn-sm" href="#">
+                    <i class="fas fa-folder">
+                    </i>
+                    View
+                  </a>
+                  <a class="btn btn-info btn-sm" href="#">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                  </a>
+                  <a class="btn btn-danger btn-sm" href="#">
+                    <i class="fas fa-trash">
+                    </i>
+                    Delete
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
       </div>
-    </v-col>
-
-  </app-layout>
+    </initial-layout>
 </template>
 
 <script>
 import AppLayout from '@/Theme/Layouts/AppLayout'
+import CustomDataTable from "@/Theme/Components/customDataTable";
+import InitialLayout from "../../../Theme/Layouts/InitialLayout";
 
 export default {
-  components: {
-    AppLayout,
-  },
-  props: ['data', 'errors'],
-  mounted() {
-    console.log(this.$page.props.data);
-  },
-  data() {
-    return {
-      item_id: null,
-      drawer: null,
-      headers: [
-        
-				 { text: 'Name', align: 'start', sortable: true, value: 'name', }, 
-				 { text: 'Description', align: 'start', sortable: true, value: 'description', }, 
-				 { text: 'Project Status', align: 'start', sortable: true,  value: 'project_status.name', },  
-
-        {text: 'Actions', value: 'actions', sortable: false},
-      ]
-    }
-  },
-
-  methods: {
-    remove() {
-      this.$inertia.post(route('deleteProject'), {
-        id: this.item_id
-      }, {
-        onFinish: () => this.item_id = null
-      });
+    components: {
+      InitialLayout,
+      CustomDataTable,
+      AppLayout,
     },
-  }
+    props: ['data', 'errors'],
+    mounted() {
+        console.log(this.$page.props.projects);
+    },
+    data() {
+        return {
+            item_id: null,
+            drawer: null,
+            headers: [
+              {text: 'SNO', value: 'SNO', sortable: false},
+              {
+                text: 'Name', align: 'start',
+                sortable: true, value: 'name',
+              },
+              {
+                text: 'Title', align: 'start',
+                sortable: true, value: 'title',
+              },
+              {text: 'Actions', value: 'actions', sortable: false},
+            ],
+          page_start: 0
+        }
+    },
+
+    methods: {
+        submit() {
+            this.form
+                .transform(data => ({
+                    ... data,
+                    remember: this.form.remember ? 'on' : ''
+                }))
+                .post(this.route('login'), {
+                    onFinish: () => this.form.reset('password'),
+                })
+        },
+        remove() {
+            this.$inertia.post(route('deleteProject'), {
+                id: this.item_id
+            },{
+                onFinish: () => this.item_id = null
+            });
+        },
+    }
 }
 </script>

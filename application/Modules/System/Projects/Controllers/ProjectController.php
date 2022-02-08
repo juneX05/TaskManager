@@ -5,97 +5,69 @@ namespace Application\Modules\System\Projects\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Application\Modules\System\Projects\Models\Project;
-use Application\Modules\Configurations\DevConfigs\Tabs\ProjectStatuses\Models\ProjectStatus; 
-
+use Application\Modules\Core\Users\Models\User;
 
 class ProjectController extends Controller
 {
-    public function index()
-    {
-        abort_if(Gate::denies('projects.view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $view_data = [];
-        $view_data['data'] =  Project::with(['project_status',])->get();
-
-        return $this->render('Index', $view_data);
-    }
-
     public function render($component, $props)
     {
         return Inertia::render('System/Projects/Views/' . $component, $props);
     }
 
-    public function create()
+    public function index()
     {
+        abort_if(Gate::denies('projects.view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $data = Project::all();
+
+        return $this->render('Index', ['data' => $data]);
+    }
+
+    public function create() {
         abort_if(Gate::denies('project.create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $view_data = [];
-		$view_data['project_statuses'] = ProjectStatus::all();
-
-
-        return $this->render('Create', $view_data);
+        return $this->render('Create', []);
     }
 
-    public function edit($id)
-    {
+    public function edit($id) {
         abort_if(Gate::denies('project.edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $view_data = [];
-
-		$view_data['project'] = Project::with(['project_status',])->where('id', $id)->first();
-		$view_data['project_statuses'] = ProjectStatus::all();
-
-        return $this->render('Edit', $view_data);
-    }
-
-    public function show($id)
-    {
-        abort_if(Gate::denies('project.view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $view_data = [];
-
-		$view_data['project'] =  Project::with(['project_status',])->where('id', $id)->first();
-
-        return $this->render('Detail', $view_data);
+        $project = Project::where('id',$id)->first();
+        return $this->render('Edit', ['project' => $project]);
     }
 
     public function store(Request $request)
     {
         abort_if(Gate::denies('project.create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $rules = [
-			'name' => ['required','string','max:40','unique:projects',],
-			'description' => ['nullable','string',],
-];
-        $data = $request->all();
-        Validator::make($data, $rules)->validate();
+        Validator::make($request->all(), [
+            'name' => ['required'],
+            'title' => ['required'],
+        ])->validate();
 
-        $data['project_status_id'] = 1;
-        $project = Project::create($data);
+        Project::create($request->all());
 
         return redirect()->back()
-            ->with('message', 'project Created Successfully.');
+            ->with('message', 'Project Created Successfully.');
     }
 
     public function update(Request $request)
     {
         abort_if(Gate::denies('project.edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $rules = [
-            'key_id' => ['required', 'integer'],
+        Validator::make($request->all(), [
+            'id' => ['required'],
+            'title' => ['required'],
+            'name' => ['required'],
+        ])->validate();
 
-			'name' => ['required','string','max:40',\Illuminate\Validation\Rule::unique('projects')->ignore($request->key_id),],
-			'description' => ['nullable','string',],
-
-        ];
-        Validator::make($request->all(), $rules)->validate();
-
-        if ($request->has('key_id')) {
-            Project::find($request->input('key_id'))->update($request->all());
+        if ($request->has('id')) {
+            Project::find($request->input('id'))->update($request->all());
 
             return redirect()->back()
                 ->with('message', 'Project Updated Successfully.');

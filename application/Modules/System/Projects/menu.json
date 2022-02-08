@@ -1,11 +1,10 @@
 {
-  "projects": {
-    "title": "Projects",
-    "icon": "mdi-tag",
-    "link": "viewProjects",
-    "permissions": [
-      "projects.view"
-    ],
-    "position": 6
-  }
+    "projects": {
+        "title": "Projects",
+        "icon": "mdi-tag",
+        "link": "viewProjects",
+        "projects": "projects.view",
+        "parent": "configurations",
+        "position": 4
+    }
 }

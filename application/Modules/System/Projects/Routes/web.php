@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Application\Modules\System\Projects\Controllers\ProjectController;
 
 /*
@@ -16,12 +18,14 @@ use Application\Modules\System\Projects\Controllers\ProjectController;
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::get('/project', [ProjectController::class, 'index'])->name('viewProjects');
-    Route::get('/project/{id}/view', [ProjectController::class, 'show'])->name('viewProject');
-    Route::get('/project/create', [ProjectController::class, 'create'])->name('createProject');
-    Route::post('/project/save', [ProjectController::class, 'store'])->name('saveProject');
-    Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('editProject');
-    Route::post('/project/delete', [ProjectController::class, 'destroy'])->name('deleteProject');
-    Route::post('/project/update', [ProjectController::class, 'update'])->name('updateProject');
+    Route::get('/projects', [ProjectController::class,'index'])->name('viewProjects');
+    Route::get('/projects/create', [ProjectController::class,'create'])->name('createProject');
+    Route::post('/projects/save', [ProjectController::class,'store'])->name('saveProject');
+    Route::get('/projects/manage_user_projects', [ProjectController::class,'manageUsersProjects'])->name('manageUsersProjects');
+    Route::post('/projects/save/user_projects', [ProjectController::class,'saveUsersProjects'])->name('saveUsersProjects');
+    Route::post('/projects/get_user_projects', [ProjectController::class,'userProjects'])->name('getUserProjects');
+    Route::get('/projects/{id}/edit', [ProjectController::class,'edit'])->name('editProject');
+    Route::post('/projects/delete', [ProjectController::class,'destroy'])->name('deleteProject');
+    Route::post('/projects/update', [ProjectController::class,'update'])->name('updateProject');
 
 });

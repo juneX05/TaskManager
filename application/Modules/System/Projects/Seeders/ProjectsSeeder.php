@@ -2,6 +2,7 @@
 
 namespace Application\Modules\System\Projects\Seeders;
 
+use Application\Modules\Core\Projects\Models\Project;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,32 +15,25 @@ class ProjectsSeeder extends Seeder
      */
     public function run()
     {
-        $this->setUpPermissions();
-
-//        $projects = [
-//            ''
-//        ];
-//        DB::table('projects')->insert($projects);
-    }
-
-    private function setUpPermissions()
-    {
         $permissions = [
             ['name' => 'projects.view', 'title' => 'View Projects',],
-            ['name' => 'project.view', 'title' => 'View Project',],
-            ['name' => 'project.create', 'title' => 'Create Project',],
-            ['name' => 'project.edit', 'title' => 'Edit Project',],
-            ['name' => 'project.delete', 'title' => 'Delete Project',],
+            ['name' => 'project.create', 'title' => 'Create project',],
+            ['name' => 'project.edit', 'title' => 'Edit project',],
+            ['name' => 'project.delete', 'title' => 'Delete project',],
+
+
+//            ['name' => 'questions.view', 'title' => 'View Questions',],
         ];
         DB::table('permissions')->insert($permissions);
+
 
         foreach ($permissions as $permission) {
             DB::table('user_permissions')
                 ->insert([
-                    'user_id' => 1,
-                    'permission_name' => $permission['name'],
-                    'status' => 1,
-                ]);
+                            'user_id' => 1,
+                            'permission_name' => $permission['name'],
+                            'status' => 1,
+                      ]);
         }
     }
 }

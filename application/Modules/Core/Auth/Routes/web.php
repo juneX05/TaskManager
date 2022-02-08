@@ -1,6 +1,8 @@
 <?php
 
+use Application\Modules\Core\Auth\Controllers\AuthController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,6 +17,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/login', function () {
-    return Inertia::render('Core/Auth/Views/Login');
-})->name('login');
+//Route::get('dashboard', [AuthController::class, 'dashboard']);
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('custom-login', [AuthController::class, 'login'])->name('login.custom');
+//Route::get('registration', [AuthController::class, 'registration'])->name('register-user');
+//Route::post('custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
+Route::get('signout', [AuthController::class, 'signOut'])->name('signout');

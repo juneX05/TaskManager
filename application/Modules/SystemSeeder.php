@@ -23,12 +23,8 @@ class SystemSeeder extends Seeder
         ];
 
         $system_seeders = [
-            'Application\Modules\Configurations\DevConfigs\Tabs\ProjectStatuses\Seeders\ProjectStatusesSeeder',
-            'Application\Modules\Configurations\DevConfigs\Tabs\TaskStatuses\Seeders\TaskStatusesSeeder',
             'Application\Modules\System\Projects\Seeders\ProjectsSeeder',
-            'Application\Modules\System\Tasks\Seeders\TasksSeeder',
         ];
-
 
         $this->call(array_merge($core_seeders, $system_seeders));
     }
