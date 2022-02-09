@@ -10,7 +10,7 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'title'
+        'name', 'title', 'description', 'user_id'
     ];
 
     public function getTableColumns() {

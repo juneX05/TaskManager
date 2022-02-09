@@ -1,14 +1,20 @@
 <template>
-  <app-layout>
-    <template #header> Project Add </template>
+  <initial-layout>
+    <template #header>
+      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjects')">
+        <i class="fa fa-arrow-left"></i> Back to All Projects
+      </inertia-link>
+    </template>
 
-    <div class="container-fluid">
+    <div class="container">
       <!-- Default box -->
       <div class="row">
       <div class="col-md-6 mx-auto">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">General</h3>
+            <h3 class="card-title">
+              Add Project
+            </h3>
 
 <!--            <div class="card-tools">-->
 <!--              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">-->
@@ -25,7 +31,7 @@
                        :class="checkErrors('name')? 'is-invalid' : ''"
                        placeholder="Name">
                 <span v-if="checkErrors('name')"
-                      id="exampleInputEmail1-error"
+                      id="name-error"
                       class="error invalid-feedback"
                 >
                 {{ errors.name }}
@@ -40,11 +46,26 @@
                     placeholder="Title"
                 >
                 <span v-if="checkErrors('title')"
-                      id="exampleInputPassword1-error"
+                      id="title-error"
                       class="error invalid-feedback"
                 >
-                {{ errors.title }}
-              </span>
+                  {{ errors.title }}
+                </span>
+              </div>
+              <div class="input-group mb-3">
+                <textarea
+                    rows="5"
+                    :class="checkErrors('description')? 'is-invalid' : ''"
+                    v-model="form.description"
+                    class="form-control"
+                    placeholder="Project Description"
+                ></textarea>
+                <span v-if="checkErrors('title')"
+                      id="description-error"
+                      class="error invalid-feedback"
+                >
+                  {{ errors.description }}
+                </span>
               </div>
               <div class="row">
                 <!-- /.col -->
@@ -64,24 +85,23 @@
       </div>
     </div>
       <!-- /.card -->
-  </app-layout>
+  </initial-layout>
 </template>
 
 <script>
 import AppLayout from '@/Theme/Layouts/AppLayout'
+import InitialLayout from "../../../Theme/Layouts/InitialLayout";
 
 export default {
     components: {
+      InitialLayout,
         AppLayout,
     },
     props: ['errors'],
     data() {
         return {
             drawer: null,
-            form: this.$inertia.form({
-                name: '',
-                title: '',
-            }),
+            form: {},
             loading:false
         }
     },
@@ -89,13 +109,12 @@ export default {
     methods: {
         submit() {
             this.loading = true;
-            this.form
+            this.$inertia.form(this.form)
                 .transform(data => ({
                     ... data,
                 }))
                 .post(this.route('saveProject'), {
                     onSuccess: () => {
-                        this.form.reset();
                         this.$inertia.visit(route('viewProjects'))
                     },
                     onError: () => {

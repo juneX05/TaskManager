@@ -1,64 +1,100 @@
 <template>
-    <app-layout>
-        <template #bread-crumbs>
-            <inertia-link :href="route('home')" style="text-decoration: none">
-                <v-icon size="16" style="margin-top: -2px">home</v-icon>
-            </inertia-link>
-            /
-            <inertia-link :href="route('viewProjects')" style="text-decoration: none">
-                Projects List
-            </inertia-link>
-            <span class="text-md">
-                / Edit Project
-            </span>
+  <initial-layout>
+    <template #header>
+      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjects')">
+        <i class="fa fa-arrow-left"></i> Back to All Projects
+      </inertia-link>
+    </template>
 
-            <br/>
-            <inertia-link :href="route('viewProjects')" as="v-btn" class="mt-2" small style="text-decoration: none">
-                <v-icon>arrow_back</v-icon>
-                Back
-            </inertia-link>
-        </template>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Projects
-            </h2>
-        </template>
+    <div class="container">
+      <!-- Default box -->
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">
+                Edit Project
+              </h3>
 
-        <v-row align="center" justify="center" align-content="center">
-            <v-col cols="8">
-                <v-card class="mt-2">
-                    <v-card-title>
-                        EDIT Project
-                    </v-card-title>
-                    <v-card-text class="pb-0">
-                        <v-form>
-                            <v-text-field class="mb-3"
-                                          hide-details="auto" :error="checkErrors('name')" :error-messages="errors.name"
-                                          hint="Includes alphabets and dots(.) ex project.create"
-                                          outlined dense label="Project Name" name="name" type="text" v-model="form.name"></v-text-field>
-
-                            <v-text-field class="mb-3"
-                                          hide-details="auto" :error="checkErrors('title')" :error-messages="errors.title"
-                                          hint="A general name to make user understand the goal of the project"
-                                          outlined dense label="Project Title" name="title" type="text" v-model="form.title"></v-text-field>
-                        </v-form>
-                    </v-card-text>
-                    <v-card-actions class="pt-0">
-                        <v-btn dark @click="submit" :loading="loading">Update Project</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-
-        </v-row>
-
-    </app-layout>
+              <!--            <div class="card-tools">-->
+              <!--              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">-->
+              <!--                <i class="fas fa-minus"></i>-->
+              <!--              </button>-->
+              <!--            </div>-->
+            </div>
+            <div class="card-body">
+              <form @submit.prevent="submit" method="post">
+                <div class="input-group mb-3">
+                  <input type="text"
+                         v-model="form.name"
+                         class="form-control"
+                         :class="checkErrors('name')? 'is-invalid' : ''"
+                         placeholder="Name">
+                  <span v-if="checkErrors('name')"
+                        id="name-error"
+                        class="error invalid-feedback"
+                  >
+                {{ errors.name }}
+              </span>
+                </div>
+                <div class="input-group mb-3">
+                  <input
+                      type="text"
+                      :class="checkErrors('title')? 'is-invalid' : ''"
+                      v-model="form.title"
+                      class="form-control"
+                      placeholder="Title"
+                  >
+                  <span v-if="checkErrors('title')"
+                        id="title-error"
+                        class="error invalid-feedback"
+                  >
+                  {{ errors.title }}
+                </span>
+                </div>
+                <div class="input-group mb-3">
+                <textarea
+                    rows="5"
+                    :class="checkErrors('description')? 'is-invalid' : ''"
+                    v-model="form.description"
+                    class="form-control"
+                    placeholder="Project Description"
+                ></textarea>
+                  <span v-if="checkErrors('title')"
+                        id="description-error"
+                        class="error invalid-feedback"
+                  >
+                  {{ errors.description }}
+                </span>
+                </div>
+                <div class="row">
+                  <!-- /.col -->
+                  <div class="col-4 ">
+                    <button class="btn btn-primary btn-block">
+                      Update Project
+                    </button>
+                  </div>
+                  <!-- /.col -->
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+    <!-- /.card -->
+  </initial-layout>
 </template>
 
 <script>
 import AppLayout from '@/Theme/Layouts/AppLayout'
+import InitialLayout from "../../../Theme/Layouts/InitialLayout";
 
 export default {
     components: {
+      InitialLayout,
         AppLayout,
     },
     props: ['errors','project'],
@@ -70,9 +106,10 @@ export default {
             drawer: null,
             // form: this.project,
             form: this.$inertia.form({
-                id:this.project.id,
+                key_id:this.project.id,
                 name:this.project.name,
-                title:this.project.title
+                title:this.project.title,
+                description:this.project.description,
             }),
             loading:false
         }

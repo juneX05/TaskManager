@@ -21,10 +21,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/projects', [ProjectController::class,'index'])->name('viewProjects');
     Route::get('/projects/create', [ProjectController::class,'create'])->name('createProject');
     Route::post('/projects/save', [ProjectController::class,'store'])->name('saveProject');
-    Route::get('/projects/manage_user_projects', [ProjectController::class,'manageUsersProjects'])->name('manageUsersProjects');
-    Route::post('/projects/save/user_projects', [ProjectController::class,'saveUsersProjects'])->name('saveUsersProjects');
-    Route::post('/projects/get_user_projects', [ProjectController::class,'userProjects'])->name('getUserProjects');
     Route::get('/projects/{id}/edit', [ProjectController::class,'edit'])->name('editProject');
+    Route::get('/projects/{id}/view', [ProjectController::class,'show'])->name('viewProject');
     Route::post('/projects/delete', [ProjectController::class,'destroy'])->name('deleteProject');
     Route::post('/projects/update', [ProjectController::class,'update'])->name('updateProject');
 

@@ -41,16 +41,26 @@ class ProjectController extends Controller
         return $this->render('Edit', ['project' => $project]);
     }
 
+    public function show($id) {
+        abort_if(Gate::denies('project.view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $project = Project::where('id',$id)->first();
+        return $this->render('Details', ['project' => $project]);
+    }
+
     public function store(Request $request)
     {
         abort_if(Gate::denies('project.create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        Validator::make($request->all(), [
+        $data = Validator::make($request->all(), [
             'name' => ['required'],
             'title' => ['required'],
+            'description' => ['required'],
         ])->validate();
 
-        Project::create($request->all());
+        $data['user_id'] = Auth::id();
+
+        Project::create($data);
 
         return redirect()->back()
             ->with('message', 'Project Created Successfully.');
@@ -61,13 +71,14 @@ class ProjectController extends Controller
         abort_if(Gate::denies('project.edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         Validator::make($request->all(), [
-            'id' => ['required'],
+            'key_id' => ['required'],
             'title' => ['required'],
             'name' => ['required'],
+            'description' => ['required'],
         ])->validate();
 
-        if ($request->has('id')) {
-            Project::find($request->input('id'))->update($request->all());
+        if ($request->has('key_id')) {
+            Project::find($request->input('key_id'))->update($request->all());
 
             return redirect()->back()
                 ->with('message', 'Project Updated Successfully.');
