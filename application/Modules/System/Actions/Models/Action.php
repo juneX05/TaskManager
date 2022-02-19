@@ -1,20 +1,20 @@
 <?php
 
-namespace Application\Modules\System\Projects\Models;
+namespace Application\Modules\System\Actions\Models;
 
 use Application\Modules\System\Modules\Models\Module;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Action extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'title', 'description', 'user_id'
+         'title', 'description', 'user_id', 'module_id'
     ];
 
-    public function modules() {
-        return $this->hasMany(Module::class);
+    public function module() {
+        return $this->BelongsTo(Module::class);
     }
 }

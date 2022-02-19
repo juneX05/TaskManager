@@ -13,4 +13,6 @@
 /*Bootstrap*/
 @import '../../node_modules/admin-lte/dist/css/adminlte.css';
 
-
+.wrapper .content-wrapper {
+    min-height: calc(100vh - calc(3.5rem + 1px) - calc(3rem + 1px));
+}

@@ -1,8 +1,8 @@
 <template>
   <initial-layout>
     <template #header>
-      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjects')">
-        <i class="fa fa-arrow-left"></i> Back to All Projects
+      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewActions')">
+        <i class="fa fa-arrow-left"></i> Back to All Actions
       </inertia-link>
     </template>
 
@@ -11,7 +11,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Projects Detail</h3>
+          <h3 class="card-title">Actions Detail</h3>
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
               <i class="fas fa-minus"></i>
@@ -44,7 +44,7 @@
                 <div class="col-12 col-sm-4">
                   <div class="info-box bg-light">
                     <div class="info-box-content">
-                      <span class="info-box-text text-center text-muted">Estimated project duration</span>
+                      <span class="info-box-text text-center text-muted">Estimated action duration</span>
                       <span class="info-box-number text-center text-muted mb-0">20</span>
                     </div>
                   </div>
@@ -111,20 +111,20 @@
               </div>
             </div>
             <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{project.title }} </h3>
+              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{action.title }} </h3>
               <p class="text-muted">
-                {{project.description}}
+                {{action.description}}
               </p>
               <br>
 <!--              <div class="text-muted">-->
 <!--                <p class="text-sm">Client Company-->
 <!--                  <b class="d-block">Deveint Inc</b>-->
 <!--                </p>-->
-<!--                <p class="text-sm">Project Leader-->
+<!--                <p class="text-sm">Action Leader-->
 <!--                  <b class="d-block">Tony Chicken</b>-->
 <!--                </p>-->
 <!--              </div>-->
-              <h5 class="mt-5 text-muted">Project files</h5>
+              <h5 class="mt-5 text-muted">Action files</h5>
               <ul class="list-unstyled">
                 <li>
                   <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
@@ -152,12 +152,12 @@
 
       </div>
 
-      <modules-index
-        :data="project.modules"
-        :errors="errors"
-        :project_id="project.id"
-      >
-      </modules-index>
+<!--      <modules-index-->
+<!--        :data="action.modules"-->
+<!--        :errors="errors"-->
+<!--        :action_id="action.id"-->
+<!--      >-->
+<!--      </modules-index>-->
 
     </div>
   </initial-layout>
@@ -166,27 +166,27 @@
 <script>
 import AppLayout from '@/Theme/Layouts/AppLayout'
 import InitialLayout from "../../../Theme/Layouts/InitialLayout";
-import ModulesIndex from "./modules/ModulesIndex";
+// import ModulesIndex from "./modules/ModulesIndex";
 
 export default {
     components: {
-      ModulesIndex,
+      // ModulesIndex,
       InitialLayout,
         AppLayout,
     },
-    props: ['errors','project',],
+    props: ['errors','action',],
     mounted() {
-        console.log(this.project)
+        console.log(this.action)
     },
     data() {
         return {
             drawer: null,
-            // form: this.project,
+            // form: this.action,
             form: this.$inertia.form({
-                key_id:this.project.id,
-                name:this.project.name,
-                title:this.project.title,
-                description:this.project.description,
+                key_id:this.action.id,
+                name:this.action.name,
+                title:this.action.title,
+                description:this.action.description,
             }),
             loading:false
         }

@@ -1,0 +1,10 @@
+{
+    "actions": {
+        "title": "Actions",
+        "icon": "mdi-tag",
+        "link": "viewActions",
+        "actions": "actions.view",
+        "parent": "configurations",
+        "position": 4
+    }
+}

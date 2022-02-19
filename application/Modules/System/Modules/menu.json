@@ -1,0 +1,10 @@
+{
+    "modules": {
+        "title": "Modules",
+        "icon": "mdi-tag",
+        "link": "viewModules",
+        "modules": "modules.view",
+        "parent": "configurations",
+        "position": 4
+    }
+}

@@ -24,6 +24,7 @@ class SystemSeeder extends Seeder
 
         $system_seeders = [
             'Application\Modules\System\Projects\Seeders\ProjectsSeeder',
+            'Application\Modules\System\Modules\Seeders\ModulesSeeder',
         ];
 
         $this->call(array_merge($core_seeders, $system_seeders));

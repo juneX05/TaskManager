@@ -1,8 +1,8 @@
 <template>
   <initial-layout>
     <template #header>
-      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjects')">
-        <i class="fa fa-arrow-left"></i> Back to All Projects
+      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewTasks')">
+        <i class="fa fa-arrow-left"></i> Back to All Tasks
       </inertia-link>
     </template>
 
@@ -11,7 +11,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Projects Detail</h3>
+          <h3 class="card-title">Tasks Detail</h3>
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
               <i class="fas fa-minus"></i>
@@ -44,7 +44,7 @@
                 <div class="col-12 col-sm-4">
                   <div class="info-box bg-light">
                     <div class="info-box-content">
-                      <span class="info-box-text text-center text-muted">Estimated project duration</span>
+                      <span class="info-box-text text-center text-muted">Estimated task duration</span>
                       <span class="info-box-number text-center text-muted mb-0">20</span>
                     </div>
                   </div>
@@ -111,20 +111,20 @@
               </div>
             </div>
             <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{project.title }} </h3>
+              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{task.title }} </h3>
               <p class="text-muted">
-                {{project.description}}
+                {{task.description}}
               </p>
               <br>
 <!--              <div class="text-muted">-->
 <!--                <p class="text-sm">Client Company-->
 <!--                  <b class="d-block">Deveint Inc</b>-->
 <!--                </p>-->
-<!--                <p class="text-sm">Project Leader-->
+<!--                <p class="text-sm">Task Leader-->
 <!--                  <b class="d-block">Tony Chicken</b>-->
 <!--                </p>-->
 <!--              </div>-->
-              <h5 class="mt-5 text-muted">Project files</h5>
+              <h5 class="mt-5 text-muted">Task files</h5>
               <ul class="list-unstyled">
                 <li>
                   <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
@@ -152,12 +152,12 @@
 
       </div>
 
-      <modules-index
-        :data="project.modules"
-        :errors="errors"
-        :project_id="project.id"
-      >
-      </modules-index>
+<!--      <modules-index-->
+<!--        :data="task.modules"-->
+<!--        :errors="errors"-->
+<!--        :task_id="task.id"-->
+<!--      >-->
+<!--      </modules-index>-->
 
     </div>
   </initial-layout>
@@ -166,27 +166,27 @@
 <script>
 import AppLayout from '@/Theme/Layouts/AppLayout'
 import InitialLayout from "../../../Theme/Layouts/InitialLayout";
-import ModulesIndex from "./modules/ModulesIndex";
+// import ModulesIndex from "./modules/ModulesIndex";
 
 export default {
     components: {
-      ModulesIndex,
+      // ModulesIndex,
       InitialLayout,
         AppLayout,
     },
-    props: ['errors','project',],
+    props: ['errors','task',],
     mounted() {
-        console.log(this.project)
+        console.log(this.task)
     },
     data() {
         return {
             drawer: null,
-            // form: this.project,
+            // form: this.task,
             form: this.$inertia.form({
-                key_id:this.project.id,
-                name:this.project.name,
-                title:this.project.title,
-                description:this.project.description,
+                key_id:this.task.id,
+                name:this.task.name,
+                title:this.task.title,
+                description:this.task.description,
             }),
             loading:false
         }

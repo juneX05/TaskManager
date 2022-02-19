@@ -1,8 +1,8 @@
 <template>
   <initial-layout>
     <template #header>
-      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjects')">
-        <i class="fa fa-arrow-left"></i> Back to All Projects
+      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewModules')">
+        <i class="fa fa-arrow-left"></i> Back to All Modules
       </inertia-link>
     </template>
 
@@ -11,7 +11,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Projects Detail</h3>
+          <h3 class="card-title">Modules Detail</h3>
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
               <i class="fas fa-minus"></i>
@@ -44,7 +44,7 @@
                 <div class="col-12 col-sm-4">
                   <div class="info-box bg-light">
                     <div class="info-box-content">
-                      <span class="info-box-text text-center text-muted">Estimated project duration</span>
+                      <span class="info-box-text text-center text-muted">Estimated module duration</span>
                       <span class="info-box-number text-center text-muted mb-0">20</span>
                     </div>
                   </div>
@@ -111,20 +111,20 @@
               </div>
             </div>
             <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{project.title }} </h3>
+              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> {{module.title }} </h3>
               <p class="text-muted">
-                {{project.description}}
+                {{module.description}}
               </p>
               <br>
 <!--              <div class="text-muted">-->
 <!--                <p class="text-sm">Client Company-->
 <!--                  <b class="d-block">Deveint Inc</b>-->
 <!--                </p>-->
-<!--                <p class="text-sm">Project Leader-->
+<!--                <p class="text-sm">Module Leader-->
 <!--                  <b class="d-block">Tony Chicken</b>-->
 <!--                </p>-->
 <!--              </div>-->
-              <h5 class="mt-5 text-muted">Project files</h5>
+              <h5 class="mt-5 text-muted">Module files</h5>
               <ul class="list-unstyled">
                 <li>
                   <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
@@ -151,14 +151,104 @@
         </div>
 
       </div>
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title float-left">Modules</h3>
 
-      <modules-index
-        :data="project.modules"
-        :errors="errors"
-        :project_id="project.id"
-      >
-      </modules-index>
+          <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('createModule')">
+            <i class="fa fa-plus"></i> New
+          </inertia-link>
 
+          <!--            <div class="card-tools">-->
+          <!--              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">-->
+          <!--                <i class="fas fa-minus"></i>-->
+          <!--              </button>-->
+          <!--              <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">-->
+          <!--                <i class="fas fa-times"></i>-->
+          <!--              </button>-->
+          <!--            </div>-->
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped modules">
+            <thead>
+            <tr>
+              <th style="width: 1%">
+                #
+              </th>
+              <th style="width: 20%">
+                Module Name
+              </th>
+              <th style="width: 20%">
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item, index) in this.$page.props.data" :key="index">
+              <td>
+                # {{item.id}}
+              </td>
+              <td>
+                <a>
+                  {{ item.title }}
+                </a>
+                <br/>
+                <small>
+                  Created {{ item.created_at }}
+                </small>
+              </td>
+              <td class="module-actions text-right">
+
+                <inertia-link class="btn btn-primary btn-sm" :href="route('viewModule',[item.id])">
+                  <i class="fas fa-folder">
+                  </i>
+                  View
+                </inertia-link>
+
+                <inertia-link class="btn btn-info btn-sm" :href="route('editModule',[item.id])">
+                  <i class="fas fa-pencil-alt">
+                  </i>
+                  Edit
+                </inertia-link>
+
+                <a @click="item_id = item.id"
+                   class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-modal">
+                  <i class="fas fa-trash">
+                  </i>
+                  Delete
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </div>
+
+
+    <div class="modal fade" id="delete-modal">
+      <div class="modal-dialog">
+        <div class="modal-content bg-danger">
+          <div class="modal-header">
+            <h4 class="modal-title">Deleting Module</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this module?</p>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button @click="item_id = null"
+                    type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+            <button @click="remove"
+                    type="button" class="btn btn-outline-light" >Yes</button>
+          </div>
+        </div>
+      </div>
     </div>
   </initial-layout>
 </template>
@@ -166,27 +256,25 @@
 <script>
 import AppLayout from '@/Theme/Layouts/AppLayout'
 import InitialLayout from "../../../Theme/Layouts/InitialLayout";
-import ModulesIndex from "./modules/ModulesIndex";
 
 export default {
     components: {
-      ModulesIndex,
       InitialLayout,
         AppLayout,
     },
-    props: ['errors','project',],
+    props: ['errors','module'],
     mounted() {
-        console.log(this.project)
+        console.log(this.module)
     },
     data() {
         return {
             drawer: null,
-            // form: this.project,
+            // form: this.module,
             form: this.$inertia.form({
-                key_id:this.project.id,
-                name:this.project.name,
-                title:this.project.title,
-                description:this.project.description,
+                key_id:this.module.id,
+                name:this.module.name,
+                title:this.module.title,
+                description:this.module.description,
             }),
             loading:false
         }
@@ -195,7 +283,7 @@ export default {
     methods: {
         checkErrors(key) {
             return this.errors[key] !== undefined;
-        },
+        }
     }
 }
 </script>

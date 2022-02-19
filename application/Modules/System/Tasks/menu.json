@@ -1,0 +1,10 @@
+{
+    "tasks": {
+        "title": "Tasks",
+        "icon": "mdi-tag",
+        "link": "viewTasks",
+        "tasks": "tasks.view",
+        "parent": "configurations",
+        "position": 4
+    }
+}
