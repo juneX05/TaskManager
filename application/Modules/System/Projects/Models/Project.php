@@ -12,7 +12,7 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'title', 'description', 'user_id'
+        'title', 'description', 'user_id', 'project_id'
     ];
 
     public function modules() {

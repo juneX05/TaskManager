@@ -57,7 +57,7 @@ class ProjectTaskController extends Controller
         abort_if(Gate::denies('project.create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $data = Validator::make($request->all(), [
-            'action_id' => ['required'],
+            'project_id' => ['required'],
             'title' => ['required'],
             'description' => ['required'],
             'start_date' => ['nullable'],

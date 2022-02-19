@@ -25,19 +25,6 @@
             <div class="card-body">
               <form @submit.prevent="submit" method="post">
                 <div class="input-group mb-3">
-                  <input type="text"
-                         v-model="form.name"
-                         class="form-control"
-                         :class="checkErrors('name')? 'is-invalid' : ''"
-                         placeholder="Name">
-                  <span v-if="checkErrors('name')"
-                        id="name-error"
-                        class="error invalid-feedback"
-                  >
-                {{ errors.name }}
-              </span>
-                </div>
-                <div class="input-group mb-3">
                   <input
                       type="text"
                       :class="checkErrors('title')? 'is-invalid' : ''"
@@ -107,7 +94,6 @@ export default {
             // form: this.project,
             form: this.$inertia.form({
                 key_id:this.project.id,
-                name:this.project.name,
                 title:this.project.title,
                 description:this.project.description,
             }),

@@ -175,10 +175,18 @@ export default {
     }
   },
   mounted() {
+    if($('body').hasClass('sidebar-open')) {
+      $('body')
+          .removeClass('sidebar-open')
+          .addClass('sidebar-closed sidebar-collapsed sidebar-collapse')
+    }
+
     $('body')
-        .addClass('sidebar-mini')
+        .addClass('sidebar-mini layout-fixed')
         .removeClass('layout-top-nav')
         .Layout('fixLayoutHeight')
+
+
   },
   methods: {
     switchToTeam(team) {

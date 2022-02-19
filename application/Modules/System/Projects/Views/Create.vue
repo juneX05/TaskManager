@@ -25,19 +25,6 @@
           <div class="card-body">
             <form @submit.prevent="submit" method="post">
               <div class="input-group mb-3">
-                <input type="text"
-                       v-model="form.name"
-                       class="form-control"
-                       :class="checkErrors('name')? 'is-invalid' : ''"
-                       placeholder="Name">
-                <span v-if="checkErrors('name')"
-                      id="name-error"
-                      class="error invalid-feedback"
-                >
-                {{ errors.name }}
-              </span>
-              </div>
-              <div class="input-group mb-3">
                 <input
                     type="text"
                     :class="checkErrors('title')? 'is-invalid' : ''"

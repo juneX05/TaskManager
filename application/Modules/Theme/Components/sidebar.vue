@@ -5,13 +5,13 @@
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
     <li class="nav-item">
-      <inertia-link class="nav-link " :href="route('viewProject',[project_id])"  link>
+      <inertia-link class="nav-link " :href="route('viewProject',[project_id])" link>
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>Dashboard</p>
       </inertia-link>
     </li>
     <li class="nav-item">
-      <inertia-link class="nav-link " :href="route('viewProjectTasks',[project_id])"  link>
+      <inertia-link class="nav-link " :href="route('viewProjectTasks',[project_id])" link>
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tasks</p>
       </inertia-link>
@@ -163,6 +163,9 @@ export default {
     // }
   },
   methods: {
+    manageDrawer() {
+
+    },
     checkPermissions(menu) {
       let permissions = null
       let allowed = false;

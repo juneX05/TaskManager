@@ -55,7 +55,6 @@ class ProjectController extends Controller
         abort_if(Gate::denies('project.create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $data = Validator::make($request->all(), [
-            'name' => ['required'],
             'title' => ['required'],
             'description' => ['required'],
         ])->validate();
@@ -75,7 +74,6 @@ class ProjectController extends Controller
         Validator::make($request->all(), [
             'key_id' => ['required'],
             'title' => ['required'],
-            'name' => ['required'],
             'description' => ['required'],
         ])->validate();
 

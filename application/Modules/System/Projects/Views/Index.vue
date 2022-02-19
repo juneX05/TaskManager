@@ -29,7 +29,7 @@
                   #
                 </th>
                 <th style="width: 20%">
-                  Project Name
+                  Project Title
                 </th>
                 <th style="width: 20%">
                 </th>

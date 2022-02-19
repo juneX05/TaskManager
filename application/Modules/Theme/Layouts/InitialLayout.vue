@@ -134,7 +134,7 @@ export default {
 
   mounted() {
     $('body')
-        .removeClass('sidebar-mini')
+        .removeClass('sidebar-mini layout-fixed')
         .addClass('layout-top-nav');
   },
   methods: {

@@ -124,7 +124,6 @@ export default {
             // form: this.project,
             form: this.$inertia.form({
                 key_id:this.project.id,
-                name:this.project.name,
                 title:this.project.title,
                 description:this.project.description,
             }),
