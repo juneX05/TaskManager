@@ -17,6 +17,7 @@ class ProjectsSeeder extends Seeder
     {
         $permissions = [
             ['name' => 'projects.view', 'title' => 'View Projects',],
+            ['name' => 'project.view', 'title' => 'View Project',],
             ['name' => 'project.create', 'title' => 'Create project',],
             ['name' => 'project.edit', 'title' => 'Edit project',],
             ['name' => 'project.delete', 'title' => 'Delete project',],
