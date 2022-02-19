@@ -3,6 +3,7 @@
 use Application\Modules\System\Projects\Controllers\ProjectModuleActionController;
 use Application\Modules\System\Projects\Controllers\ProjectModuleActionTaskController;
 use Application\Modules\System\Projects\Controllers\ProjectModuleController;
+use Application\Modules\System\Projects\Controllers\ProjectTaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,20 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->prefix('/project/modules/')
         ->group(function () {
             $nameTitle = 'ProjectModule';
+            Route::get('{project_id}/create', 'create')->name('create' . $nameTitle);
+            Route::post('save', 'store')->name('save' . $nameTitle);
+            Route::get('{id}/edit', 'edit')->name('edit' . $nameTitle);
+            Route::get('{id}/view', 'show')->name('view' . $nameTitle);
+            Route::post('delete', 'destroy')->name('delete' . $nameTitle);
+            Route::post('update', 'update')->name('update' . $nameTitle);
+        });
+
+    Route::controller(ProjectTaskController::class)
+        ->prefix('/project/tasks/')
+        ->group(function () {
+            $nameTitle = 'ProjectTask';
+            $nameTitlePlural = 'ProjectTasks';
+            Route::get('{project_id}/all', 'index')->name('view' . $nameTitlePlural);
             Route::get('{project_id}/create', 'create')->name('create' . $nameTitle);
             Route::post('save', 'store')->name('save' . $nameTitle);
             Route::get('{id}/edit', 'edit')->name('edit' . $nameTitle);

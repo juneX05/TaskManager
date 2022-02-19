@@ -104,7 +104,7 @@
 
           <!-- Sidebar Menu -->
           <nav class="mt-2">
-            <sidebar></sidebar>
+            <sidebar :project_id="this.$page.props.project_id"></sidebar>
           </nav>
           <!-- /.sidebar-menu -->
         </div>
@@ -175,7 +175,10 @@ export default {
     }
   },
   mounted() {
-    $('body').addClass('sidebar-mini');
+    $('body')
+        .addClass('sidebar-mini')
+        .removeClass('layout-top-nav')
+        .Layout('fixLayoutHeight')
   },
   methods: {
     switchToTeam(team) {

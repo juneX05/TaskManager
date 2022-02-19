@@ -1,5 +1,5 @@
 <template>
-  <initial-layout>
+  <app-layout>
     <template #header>
       <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjects')">
         <i class="fa fa-arrow-left"></i> Back to All Projects
@@ -101,7 +101,7 @@
       </modules-index>
 
     </div>
-  </initial-layout>
+  </app-layout>
 </template>
 
 <script>
@@ -112,7 +112,6 @@ import ModulesIndex from "./modules/ModulesIndex";
 export default {
     components: {
       ModulesIndex,
-      InitialLayout,
         AppLayout,
     },
     props: ['errors','project',],

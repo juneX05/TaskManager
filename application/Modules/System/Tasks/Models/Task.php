@@ -4,6 +4,7 @@ namespace Application\Modules\System\Tasks\Models;
 
 use Application\Modules\System\Actions\Models\Action;
 use Application\Modules\System\Modules\Models\Module;
+use Application\Modules\System\Projects\Models\Project;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,9 @@ class Task extends Model
 
     public function action() {
         return $this->BelongsTo(Action::class);
+    }
+
+    public function project() {
+        return $this->BelongsTo(Project::class);
     }
 }
