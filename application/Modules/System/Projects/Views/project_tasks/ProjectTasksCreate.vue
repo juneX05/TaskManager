@@ -126,7 +126,7 @@ export default {
                 }))
                 .post(this.route('saveProjectTask'), {
                     onSuccess: () => {
-                        this.$inertia.visit(route('viewProjectTask', [ this.project_id]))
+                        this.$inertia.visit(route('viewProjectTasks', [ this.project_id]))
                     },
                     onError: () => {
                         console.log(this.errors)

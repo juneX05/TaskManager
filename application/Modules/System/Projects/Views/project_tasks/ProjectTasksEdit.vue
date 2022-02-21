@@ -1,8 +1,8 @@
 <template>
   <initial-layout>
     <template #header>
-      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjectModuleAction', [task.action.id])">
-        <i class="fa fa-arrow-left"></i> Back to (Action Details)
+      <inertia-link as="button" class="btn btn-primary btn-sm float-right" :href="route('viewProjectTasks', [project.id])">
+        <i class="fa fa-arrow-left"></i> Back to (Project Tasks Details)
       </inertia-link>
     </template>
 
@@ -108,13 +108,12 @@ export default {
       InitialLayout,
         AppLayout,
     },
-    props: ['errors','task'],
+    props: ['errors','task', 'project'],
     data() {
         return {
             drawer: null,
             form: {
               key_id: this.task.id,
-              action_id: this.task.action.id
             },
             loading:false
         }
@@ -135,9 +134,9 @@ export default {
                 .transform(data => ({
                     ... data,
                 }))
-                .post(this.route('updateProjectModuleActionTask'), {
+                .post(this.route('updateProjectTask'), {
                     onSuccess: () => {
-                        this.$inertia.visit(route('viewProjectModuleAction', [ this.task.action.id]))
+                        this.$inertia.visit(route('viewProjectTasks', [ this.project.id]))
                     },
                     onError: () => {
                         console.log(this.errors)

@@ -114,7 +114,7 @@ export default {
       ModulesIndex,
         AppLayout,
     },
-    props: ['errors','project',],
+    props: ['errors','project', 'project_id'],
     mounted() {
         console.log(this.project)
     },

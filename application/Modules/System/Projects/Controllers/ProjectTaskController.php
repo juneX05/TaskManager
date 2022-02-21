@@ -17,8 +17,12 @@ use Application\Modules\Core\Users\Models\User;
 
 class ProjectTaskController extends Controller
 {
+    private $project_id;
+
     public function render($component, $props)
     {
+        $props['project'] = Project::where('id', $this->project_id)->first();
+
         return Inertia::render('System/Projects/Views/project_tasks/ProjectTasks' . $component, $props);
     }
 
@@ -27,27 +31,33 @@ class ProjectTaskController extends Controller
         abort_if(Gate::denies('project.view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $data = Task::with(['project'])->where('project_id', $project_id)->get();
+        $this->project_id = $project_id;
 
-        return $this->render('Index', ['data' => $data, 'project_id' => $project_id]);
+        return $this->render('Index', compact('data'));
     }
 
     public function create($project_id) {
         abort_if(Gate::denies('module.create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $this->project_id = $project_id;
+
         return $this->render('Create', compact('project_id'));
     }
 
-    public function edit($action_id) {
+    public function edit($id) {
         abort_if(Gate::denies('module.edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $task = Task::with(['action'])->where('id',$action_id)->first();
+        $task = Task::with(['project'])->where('id',$id)->first();
+        $this->project_id = $task->project->id;
+
         return $this->render('Edit', compact('task'));
     }
 
     public function show($id) {
         abort_if(Gate::denies('project.view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $task = Task::with(['action'])->where('id',$id)->first();
+        $task = Task::with(['project'])->where('id',$id)->first();
+        $this->project_id = $task->project->id;
 
         return $this->render('Details', compact('task'));
     }

@@ -104,7 +104,7 @@
 
           <!-- Sidebar Menu -->
           <nav class="mt-2">
-            <sidebar :project_id="this.$page.props.project_id"></sidebar>
+            <sidebar :project_id="this.$page.props.project.id"></sidebar>
           </nav>
           <!-- /.sidebar-menu -->
         </div>
@@ -185,8 +185,6 @@ export default {
         .addClass('sidebar-mini layout-fixed')
         .removeClass('layout-top-nav')
         .Layout('fixLayoutHeight')
-
-
   },
   methods: {
     switchToTeam(team) {

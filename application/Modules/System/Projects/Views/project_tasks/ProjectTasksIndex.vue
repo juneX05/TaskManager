@@ -9,79 +9,66 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title float-left">
-            Tasks
+            {{ project.title }} Tasks
           </h3>
 
           <inertia-link as="button" class="btn btn-primary btn-sm float-right"
-                        :href="route('createProjectTask',[project_id])">
+                        :href="route('createProjectTask',[project.id])">
             <i class="fa fa-plus"></i> New
           </inertia-link>
 
         </div>
-        <div class="card-body p-0">
-          <table class="table table-striped actions">
-            <thead>
-            <tr>
-              <th style="width: 1%">
-                #
-              </th>
-              <th style="width: 30%">
-                Task Name
-              </th>
-              <th style="width: 40%">
-                Description
-              </th>
-              <th style="width: 20%">
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in data" :key="index">
-              <td>
-                # {{ item.id }}
-              </td>
-              <td>
-                <a>
-                  {{ item.title }}
-                </a>
-                <br/>
-                <small>
-                  Created {{ item.created_at }}
-                </small>
-              </td>
-              <td>
-                <a>
-                  {{ item.description }}
-                </a>
-              </td>
-              <td class="action-actions text-right">
 
-                <inertia-link class="btn btn-primary btn-sm" :href="route('viewProjectTask',[item.id])">
-                  <i class="fas fa-folder">
-                  </i>
-                  View
-                </inertia-link>
-
-                <inertia-link class="btn btn-info btn-sm" :href="route('editProjectTask',[item.id])">
-                  <i class="fas fa-pencil-alt">
-                  </i>
-                  Edit
-                </inertia-link>
-
-                <a @click="item_id = item.id"
-                   class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-modal">
-                  <i class="fas fa-trash">
-                  </i>
-                  Delete
-                </a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+
+      <div class="row">
+
+        <div class="col-md-6" v-for="(item, index) in data" :key="index">
+          <div class="card card-info card-outline">
+            <div class="card-header">
+              <h5 class="card-title">
+                  {{ item.title }} &nbsp;&nbsp;&nbsp;
+              </h5>
+              <div class="card-tools">
+                <a href="#" class="btn btn-tool btn-link">#{{item.id}}</a>
+              </div>
+            </div>
+            <div class="card-header">
+              <div class="badge badge-secondary">31 Steps</div>
+              <div class="card-tools">
+                <span class="badge bg-primary">
+                  <i class="fa fa-dot-circle"></i>
+                  Open
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div style="max-height: 40px; overflow: hidden">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
+                laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
+                nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+                beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable VHS.
+              </div>...
+            </div>
+            <div class="card-footer">
+              <inertia-link
+                            :href="route('viewProjectTask',[item.id])">
+                <i class="fa fa-eye"></i> View More
+              </inertia-link>
+            </div>
+          </div>
+        </div>
+
+      </div>
 
       <div class="modal fade" id="delete-modal">
         <div class="modal-dialog">
@@ -121,7 +108,7 @@ export default {
   },
   props: {
     data: Array,
-    project_id: String,
+    project: Object,
     errors: Object
   },
   mounted() {

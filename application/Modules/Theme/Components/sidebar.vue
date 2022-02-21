@@ -156,7 +156,7 @@ export default {
   name: "sidebar",
   components: {SidebarLink},
   props: {
-    project_id: {type: String, required: true}
+    project_id: {type: Number, required: true}
     // manageDrawer: {
     //   type: Function,
     //   required: true
